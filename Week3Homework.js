@@ -1,32 +1,34 @@
 //1. Create an array of pizzaToppings with at least four different toppings
 const pizzaToppings = [
-  "Sausage",
-  "Pepperoni",
-  "Bacon",
-  "Mushrooms",
-  "Peppers",
-  "Pineapple"
+  "sausage",
+  "pepperoni",
+  "bacon",
+  "mushrooms",
+  "peppers",
+  "pineapple"
 ];
-let toppingsList = "";
-function listToppings(toppingsList) {
-  pizzaToppings.splice(pizzaToppings.length - 1, 0, "and");
-  let lastItem = pizzaToppings.pop();
-  pizzaToppings.push(lastItem);
-  return pizzaToppings;
+
+function listToppings(array) {
+  let lastItem = array.pop();
+  array.push("and " + lastItem);
+  return array;
 }
-listToppings();
-console.log(pizzaToppings);
+
 // 2. Create a greetCustomer function that prints a message that welcomes a guest,
 // then informs them of the available toppings by looping over pizzaToppings
 // (don't worry about perfect grammar here yet, i.e. "a, b, and c", see Bonus Challenge #9)
 // i.e. "Welcome to Pizza House, our toppings are: a, b, c, ..."
+let toppingsList = [];
 function greetCustomer() {
-  for (let topping of pizzaToppings) {
-    toppingsList += topping + ", ";
+  let newList = listToppings(pizzaToppings);
+  let greeting = "";
+  for (let topping of newList) {
+    greeting += topping + ", ";
   }
-  listToppings(toppingsList);
-  console.log(`Welcome to Pizza House, our toppings are ${pizzaToppings}.`);
-  return toppingsList;
+  greeting = greeting.substr(0, greeting.length - 2);
+  // listToppings(toppingsList);
+  console.log(`Welcome to Pizza House, our toppings are ${greeting}.`);
+  return greeting;
 }
 
 // function greetCustomer() {
@@ -45,25 +47,40 @@ let customerToppings = "";
 function getPizzaOrder(size, crust, toppings) {
   pizzaSize = size;
   pizzaCrust = crust;
-  customerToppings = [toppings];
-  customerToppings = listToppings(customerToppings);
-  console.log(
-    `One ${pizzaSize} ${pizzaCrust} crust pizza with ${customerToppings} coming up!`
-  );
-  return [pizzaSize, pizzaCrust, customerToppings];
+  toppings = toppings;
+  for (let topping of toppings) {
+    if (pizzaToppings.indexOf(topping) < 0) {
+      console.log("We don't offer that topping. Please order again.");
+      return false;
+    }
+  }
+  let customerOrder = "";
+  if (toppings.length === 0) {
+    console.log(`One ${pizzaSize} ${pizzaCrust} cheese pizza coming up!`);
+  } else {
+    let newList = listToppings(toppings);
+    for (let topping of toppings) {
+      customerOrder += topping + ", ";
+    }
+    customerOrder = customerOrder.substr(0, customerOrder.length - 2);
+    console.log(
+      `One ${pizzaSize} ${pizzaCrust} crust pizza with ${customerOrder} coming up!`
+    );
+  }
+  return [pizzaSize, pizzaCrust, customerOrder];
 }
 
 // 4. Create a preparePizza function that
 // has an array as its parameter with three items: a size, a crust, and a list of toppings
 // prints something like "...Cooking pizza..."
 // outputs a pizza Object with appropriate key-value pairs for size, crust, and toppings
-let pizzaObject = {};
-function preparePizza([size, crust, [toppings]]) {
+
+function preparePizza([size, crust, toppings]) {
   console.log(`...Your pizza is coming up...`);
-  pizzaObject = {
+  let pizzaObject = {
     size: size,
     crust: crust,
-    toppings: [toppings]
+    toppings: toppings
   };
   return pizzaObject;
 }
@@ -73,31 +90,33 @@ function preparePizza([size, crust, [toppings]]) {
 // logs a message that the pizza is ready and repeats the order, i.e. "Order up! Here's your large thick crust pizza with x, y, z, ... Enjoy!"
 // outputs the same pizza Object that was passed in
 function servePizza(pizzaObject) {
-  console.log(
-    `Order up! Here's your ${pizzaObject.size} ${pizzaObject.crust} crust pizza with ${pizzaObject.toppings}. Enjoy!`
-  );
+  if (pizzaObject.toppings.length === 0) {
+    console.log(
+      `Order up! Here's your ${pizzaObject.size} ${pizzaObject.crust} cheese pizza!`
+    );
+  } else {
+    console.log(
+      `Order up! Here's your ${pizzaObject.size} ${pizzaObject.crust} crust pizza with ${pizzaObject.toppings}. Enjoy!`
+    );
+  }
 }
 
 // 6. Call each function and (starting with preparePizza) use the returned value from the previous function as its input
 greetCustomer();
-getPizzaOrder("large", "thick", ["sausage", "pepperoni", "bacon"]);
-preparePizza([pizzaSize, pizzaCrust, customerToppings]);
-servePizza(pizzaObject);
+let pizzaOrder = getPizzaOrder("large", "thick", [
+  "sausage",
+  "pepperoni",
+  "bacon"
+]);
+if (pizzaOrder) {
+  let pizza = preparePizza(pizzaOrder);
+  servePizza(pizza);
+}
 
 //Bonus
 // 9. Figure out how to add "and" before the last topping in a list of toppings so when we list toppings it is more grammatically correct.
 // You could create a listToppings function that stores the functionality, and call the function each time we list toppings in a function.
 // i.e. "Our toppings are a, b, and c." instead of "Our toppings are a, b, c"
-// let updatedToppingsList = [];
-// function listToppings() {
-//   updatedToppingsList = pizzaToppings.splice(
-//     pizzaToppings.length - 1,
-//     0,
-//     "and"
-//   );
-//   return updatedToppingsList;
-// }
-// console.log(updatedToppingsList);
 
 // 10. In getPizzaOrder, if an order is placed with no toppings, print a slightly different message,
 // like "One large thick crust cheese pizza coming up!" (Instead of "One large thick crust pizza with coming up!").
