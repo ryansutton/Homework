@@ -56,7 +56,7 @@ function getPizzaOrder(size, crust, toppings) {
   }
   let customerOrder = "";
   if (toppings.length === 0) {
-    console.log(`One ${pizzaSize} ${pizzaCrust} cheese pizza coming up!`);
+    console.log(`One ${pizzaSize} ${pizzaCrust} crust cheese pizza coming up!`);
   } else {
     let newList = listToppings(toppings);
     for (let topping of toppings) {
@@ -92,7 +92,7 @@ function preparePizza([size, crust, toppings]) {
 function servePizza(pizzaObject) {
   if (pizzaObject.toppings.length === 0) {
     console.log(
-      `Order up! Here's your ${pizzaObject.size} ${pizzaObject.crust} cheese pizza!`
+      `Order up! Here's your ${pizzaObject.size} ${pizzaObject.crust} crust cheese pizza!`
     );
   } else {
     console.log(
@@ -103,11 +103,7 @@ function servePizza(pizzaObject) {
 
 // 6. Call each function and (starting with preparePizza) use the returned value from the previous function as its input
 greetCustomer();
-let pizzaOrder = getPizzaOrder("large", "thick", [
-  "sausage",
-  "pepperoni",
-  "bacon"
-]);
+let pizzaOrder = getPizzaOrder("large", "thick", []);
 if (pizzaOrder) {
   let pizza = preparePizza(pizzaOrder);
   servePizza(pizza);
