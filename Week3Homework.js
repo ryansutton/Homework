@@ -44,7 +44,7 @@ let pizzaSize = "";
 let pizzaCrust = "";
 let customerToppings = "";
 
-function getPizzaOrder(size, crust, toppings) {
+function getPizzaOrder(size, crust, ...toppings) {
   pizzaSize = size;
   pizzaCrust = crust;
   toppings = toppings;
@@ -75,7 +75,7 @@ function getPizzaOrder(size, crust, toppings) {
 // prints something like "...Cooking pizza..."
 // outputs a pizza Object with appropriate key-value pairs for size, crust, and toppings
 
-function preparePizza([size, crust, toppings]) {
+function preparePizza([size, crust, ...toppings]) {
   console.log(`...Your pizza is coming up...`);
   let pizzaObject = {
     size: size,
@@ -103,7 +103,16 @@ function servePizza(pizzaObject) {
 
 // 6. Call each function and (starting with preparePizza) use the returned value from the previous function as its input
 greetCustomer();
-let pizzaOrder = getPizzaOrder("large", "thick", []);
+let pizzaOrder = getPizzaOrder(
+  "large",
+  "thick",
+  "sausage",
+  "pepperoni",
+  "bacon",
+  "mushrooms",
+  "peppers",
+  "pineapple"
+);
 if (pizzaOrder) {
   let pizza = preparePizza(pizzaOrder);
   servePizza(pizza);
