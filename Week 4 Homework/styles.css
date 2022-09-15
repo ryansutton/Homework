@@ -1,0 +1,47 @@
+* {
+  background-color: #123B77;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+#profile {
+  color: #87A7D5;
+}
+.headings {
+  color: #87A7D5;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: black;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+}
+
+
+h4 {
+  color: white;
+  text-align: center;
+}
+
+li > a {
+  color: white;
+}
+
+#picture {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: auto;
+  padding-right: 50px;
+  padding-top: 20px;
+}
