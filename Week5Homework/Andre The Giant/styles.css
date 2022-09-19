@@ -1,0 +1,68 @@
+/* * {
+    border: solid black 1px;
+} */
+
+html {
+    background-color: antiquewhite;
+}
+
+body {
+    text-align: center;
+    font-size: 18px;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+img {
+    height: 100%;
+}
+
+div {
+    border: 2px solid burlywood;
+    margin: 10px;
+}
+
+
+
+#bio {
+    float: none;
+    width: 30ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#bio >li {
+    padding: 2px;
+}
+
+#pro {
+    width: auto;
+}
+
+@media screen and (max-width: 375px) {
+    header h1 {
+        display: flex;
+        font-size: 25px;
+        justify-content: center;
+    }
+    #bio {
+        float: none;
+    }
+    #bio > li {
+        padding: 0px;
+    }
+    #introPic {
+        width: 100%;
+    }
+    img {
+        width: 250px;
+        height: auto;
+    }
+    p #Stuff {
+        display: flex;
+        flex-wrap: nowrap;
+        align-content:flex-end;
+    }
+}
